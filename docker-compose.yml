@@ -8,7 +8,7 @@ services:
       - MONGO_URI=mongodb+srv://harshwwe555:r5J8XlSsJh1i6bYh@book.zsxhcka.mongodb.net/?retryWrites=true&w=majority&appName=book
     restart: unless-stopped
     volumes:
-      -  /home/${EC2_USER}/Bookstore/uploads:/app/uploads
+      -  /home/ec2-user/Bookstore/uploads:/app/uploads
 
 volumes:
   mongodb_data:
