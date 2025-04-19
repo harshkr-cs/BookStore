@@ -3,9 +3,9 @@ import { Github, Linkedin, Mail, Heart, BookOpen, Navigation, MapPin, Phone } fr
 
 function Footer() {
   const socialLinks = [
-    { name: 'Github', icon: <Github size={20} />, url: 'https://github.com/ayushpratapsingh1' },
-    { name: 'LinkedIn', icon: <Linkedin size={20} />, url: 'https://linkedin.com/in/ayushpratapsingh1' },
-    { name: 'Email', icon: <Mail size={20} />, url: 'mailto:ayushpratapds@gmail.com' }
+    { name: 'Github', icon: <Github size={20} />, url: 'https://github.com/harshkr-cs' },
+    { name: 'LinkedIn', icon: <Linkedin size={20} />, url: 'https://linkedin.com/in/harshkumar26' },
+    { name: 'Email', icon: <Mail size={20} />, url: 'mailto:harshwwe555@gmail.com' }
   ];
 
   return (
@@ -65,7 +65,7 @@ function Footer() {
                 <a href="mailto:ayushpratapds@gmail.com" 
                    className="flex items-center gap-3 text-[#FFE8D6]/80 hover:text-[#FF9F1C] transition-colors">
                   <Mail size={20} />
-                  ayushpratapds@gmail.com
+                  harshwwe555@gmail.com
                 </a>
                 <p className="flex items-center gap-3 text-[#FFE8D6]/80">
                   <Phone size={20} className="text-[#FF9F1C]" />
@@ -85,7 +85,7 @@ function Footer() {
             Made by
             <a href="https://github.com/ayushpratapsingh1" target="_blank" rel="noopener noreferrer" 
                className="text-[#FF9F1C] hover:text-[#FFBF69] transition-colors">
-              Ayush Pratap Singh
+              Harsh Kumar
             </a>
           </div>
         </div>

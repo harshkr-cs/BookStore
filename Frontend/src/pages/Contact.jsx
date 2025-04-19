@@ -49,7 +49,7 @@ const Contact = () => {
             <div className="space-y-6">
               <div className="flex items-center space-x-4 hover:translate-x-2 transition-transform duration-300">
                 <Mail className="text-white" size={20} />
-                <p>ayushpratapds@gmail.com</p>
+                <p>harshwwe555@gmail.com</p>
               </div>
               <div className="flex items-center space-x-4 hover:translate-x-2 transition-transform duration-300">
                 <Phone className="text-white" size={20} />
