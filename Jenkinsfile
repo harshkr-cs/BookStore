@@ -17,11 +17,7 @@ pipeline {
         stage('Log in to Docker Hub') {
             steps {
                 script {
-                    // NOTE: Avoid piping since it's not supported on Windows in the same way
-                    bat """
-                        echo Logging in to Docker Hub
-                        docker login -u %DOCKER_USERNAME% -p %DOCKER_PASSWORD%
-                    """
+                    bat "echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin"
                 }
             }
         }
@@ -29,10 +25,8 @@ pipeline {
         stage('Build and Push Server Image') {
             steps {
                 script {
-                    bat """
-                        docker build -t %DOCKER_USERNAME%/backend:latest ./Backend
-                        docker push %DOCKER_USERNAME%/backend:latest
-                    """
+                    bat "docker build -t ${DOCKER_USERNAME}/backend:latest ./Backend"
+                    bat "docker push ${DOCKER_USERNAME}/backend:latest"
                 }
             }
         }
@@ -41,13 +35,13 @@ pipeline {
             steps {
                 sshPublisher(publishers: [
                     sshPublisherDesc(
-                        configName: 'EC2_SSH',
+                        configName: 'EC2_SSH', // this must match the name you configured in "Publish over SSH"
                         transfers: [
                             sshTransfer(
                                 sourceFiles: 'docker-compose.yml',
-                                remoteDirectory: 'Bookstore',
+                                remoteDirectory: 'Bookstore', // this will go to /home/ec2-user/Bookstore
                                 removePrefix: '',
-                                execCommand: '',
+                                execCommand: '', // no need to run commands now
                                 execTimeout: 120000
                             )
                         ],
@@ -66,16 +60,16 @@ pipeline {
                         transfers: [
                             sshTransfer(
                                 execCommand: """
-                                    cd Bookstore &&
-                                    export DOCKER_USERNAME=${DOCKER_USERNAME} &&
-                                    export MONGO_URI=${MONGO_URI} &&
+                                        cd Bookstore &&
+                                        export DOCKER_USERNAME=${DOCKER_USERNAME}
+                                        export MONGO_URI=${MONGO_URI}
 
-                                    docker-compose down &&
-                                    docker rmi ${DOCKER_USERNAME}/backend:latest || true &&
-                                    docker system prune -af &&
-                                    docker-compose pull &&
-                                    docker-compose up -d --force-recreate
-                                """,
+                                        docker-compose down &&
+                                        docker rmi ${DOCKER_USERNAME}/backend:latest || true &&
+                                        docker system prune -af &&
+                                        docker-compose pull &&
+                                        docker-compose up -d --force-recreate
+                                    """,
                                 execTimeout: 120000
                             )
                         ],
