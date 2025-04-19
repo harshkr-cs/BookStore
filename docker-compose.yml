@@ -1,0 +1,14 @@
+services:
+  server:
+    image: ${DOCKER_USERNAME}/backend:latest
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - MONGO_URI=${MONGO_URI}
+    restart: unless-stopped
+    volumes:
+      -  /home/${EC2_USER}/Bookstore/uploads:/app/uploads
+
+volumes:
+  mongodb_data:
