@@ -54,29 +54,24 @@ pipeline {
 
         stage('Deploy to EC2 machine') {
             steps {
-                sshPublisher(publishers: [
-                    sshPublisherDesc(
-                        configName: 'EC2_SSH',
-                        transfers: [
-                            sshTransfer(
-                                execCommand: """
-                                        cd Bookstore &&
-                                        export DOCKER_USERNAME=${DOCKER_USERNAME}
-                                        export MONGO_URI=${MONGO_URI}
-
-                                        docker-compose down &&
-                                        docker rmi ${DOCKER_USERNAME}/backend:latest || true &&
-                                        docker system prune -af &&
-                                        docker-compose pull &&
-                                        docker-compose up -d --force-recreate
-                                    """,
-                                execTimeout: 120000
-                            )
-                        ],
-                        usePromotionTimestamp: false,
-                        verbose: true
-                    )
-                ])
+                sshPublisher(
+                    publishers: [
+                        sshPublisherDesc(
+                            configName: 'EC2_SSH',
+                            transfers: [],
+                            execCommand: """
+                                cd Bookstore &&
+                                export DOCKER_USERNAME=${DOCKER_USERNAME} &&
+                                export MONGO_URI=${MONGO_URI} &&
+                                docker-compose down &&
+                                docker rmi ${DOCKER_USERNAME}/backend:latest || true &&
+                                docker system prune -af &&
+                                docker-compose pull &&
+                                docker-compose up -d --force-recreate
+                            """,
+                        )
+                    ]
+                )
             }
         }
     }
