@@ -70,7 +70,7 @@ pipeline {
                                         docker-compose pull &&
                                         docker-compose up -d --force-recreate
                                     """,
-                                execTimeout: 120000
+                                execTimeout: 1200000
                             )
                         ],
                         usePromotionTimestamp: false,
