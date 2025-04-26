@@ -26,7 +26,7 @@ app.use('/api/stats', statsRoutes);
 
 //Change
 app.get('/api', (req, res) => {
-    res.send('My Bookstore backend is liver!');
+    res.send('My Bookstore backend is live!');
 });
 // MongoDB connection
 mongoose.connect(process.env.MONGO_URI)
